@@ -7,7 +7,7 @@ import java.util.*;
 public class LocalMaximaRemove {
 
     public static void main(String[] args) {
-        int[] array = new int[]{18, 1, 3, 6, 7, -5};
+        int[] array = new int[]{-18, 21, 3, 6, 7, 65};
 
         System.out.println(Arrays.toString(removeLocalMaxima(array)));
     }
@@ -18,36 +18,25 @@ public class LocalMaximaRemove {
        
 
         //throw new UnsupportedOperationException();
-        int size = array.length;
-        int position = 0;
-        int extraArray[] = new int[size];
-        for (int i=0; i<array.length; i++){
-            if (i == 0){
-                if (array[0]>array[1])
-                    size = size - 1;
-                else{
-                    extraArray[0] = array[0];
-                    position++;
-                }
+        ArrayList<Integer>al=new ArrayList<Integer>();
+        for(int i=0;i<array.length;i++){
+            if(i==0 && array[i]<=array[i+1]){
+                al.add(array[i]);
             }
-            else if (i == array.length-1){
-                if (array[array.length-1]> array[array.length-2])
-                    size = size - 1;
-                else
-                    extraArray[size-1] = array[array.length-1];
+            else if(i==(array.length-1) && array[i]<=array[i-1]){
+                al.add(array[i]);
             }
-            else {
-                if (array[i]>array[i-1] && array[i]>array[i+1]){
-                    size = size - 1;
-                }
-                else{
-                    extraArray[position] = array[i];
-                    position++;
+            else if(i>=1 && i<=array.length-2){
+                if(array[i]<=array[i-1]||array[i]<=array[i+1]){
+                    al.add(array[i]);
                 }
             }
         }
-        int[] finalArray = Arrays.copyOf(extraArray, size);
-        return finalArray;
+        int[] newarr=new int[al.size()];
+        for(int i=0;i<al.size();i++){
+            newarr[i]=al.get(i);
+        }
+        return newarr;
         
 }
     
